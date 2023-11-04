@@ -87,6 +87,7 @@ header>p{
     justify-content: space-around;
     font-size: 30px;
     font-weight: 700;
+    margin: 10px;
 }
 .post-offices>div>p{
     padding-inline: 10px;

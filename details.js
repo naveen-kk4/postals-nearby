@@ -92,6 +92,7 @@ function renderPostOffices(arr=post_offices){
 
     arr.forEach((item)=>{
         const newDiv = document.createElement("div");
+       
         newDiv.innerHTML=` <p>Name :${item[0]}</p>
         <p>Branch Type :${item[1]}</p>
         <p>Delivery Status :${item[2]}</p>
