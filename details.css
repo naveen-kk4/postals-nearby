@@ -1,0 +1,93 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Agbalumo&family=DM+Sans:opsz@9..40&family=Inter&family=Kanit&family=Kavoon&family=Kenia&family=Lato&family=Mada&family=Montserrat&family=Open+Sans:wght@500&family=Poppins&family=Roboto&display=swap');
+
+*{
+    margin: 0%;
+    padding: 0%;
+  
+    
+}
+.location-details>p{
+    padding-inline: 10px;
+}
+
+header{
+    color: rgba(184, 188, 204, 0.50);
+font-family: 'Montserrat' serif;
+font-size: 30px;
+font-weight: 700;
+background-color: black;
+
+}
+header>p{
+    padding: 20px;
+}
+
+.location-map{
+    
+ width: 100.6vw;
+    height: 80vh;
+    background-color: #575A85;
+   margin: -25px;
+   position: relative;
+}
+.location-map>h1{
+
+    position: absolute;
+    color:#B8BCCC;
+    top: 30px;
+    left: 35%;
+    background-color: transparent;
+}
+#map{
+    width: 90%;
+    height: 80%;
+    position: absolute;
+    top: 85px;
+    left: 7%;
+   
+    background-color:white;
+    
+}
+
+.more-info{
+    background-color: black;
+}
+.more-info>h1{
+    color: #B8BCCC ;
+}
+.more-details{
+    padding: 30px;
+    font-size: 30px;
+    font-weight: 700;
+}
+#search-input{
+    width: 90%;
+   border: none;
+   outline: none;
+   color: white;
+  background-color: transparent;
+
+   
+}
+.search-results{
+    margin-inline: 25%;
+    border: 2px solid #575A85;
+    height: fit-content;
+    height: 50px;
+   
+}
+
+.post-offices>div{
+   border-radius: 10px;
+    background-color: #575A85;
+    color : #B8BCCC;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 30px;
+    font-weight: 700;
+}
+.post-offices>div>p{
+    padding-inline: 10px;
+}
