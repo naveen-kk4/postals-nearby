@@ -3,13 +3,14 @@ const details = document.querySelectorAll(".location-details>p");
 const moreDetails = document.querySelectorAll(".more-info>div>p");
 const post_office_Div = document.querySelector(".post-offices");
 const search_input = document.getElementById("search-input");
+const iframe = document.getElementsByTagName("iframe")[0];
 
 let map;
 let post_offices = [];
 let timer;
 
 
-
+window.onload=renderDetails();
 
 // first function that is being invoked on page load
 //this function fills all details on the header
@@ -38,10 +39,7 @@ async function renderDetails(){
            
        }
    
-         map = new google.maps.Map(document.getElementById("map"), {
-         center: { lat: result.latitude, lng: result.longitude },
-         zoom: 8,
-       });
+    iframe.src = `https://maps.google.com/maps?q=${result.latitude}, ${result.longitude}&z=15&output=embed`;
    
        fillPostOfficeArray(result.postal);
         
@@ -50,7 +48,6 @@ async function renderDetails(){
         console.log(e);
     }
   
-   
     
 
 }
