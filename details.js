@@ -18,31 +18,39 @@ let timer;
 async function renderDetails(){
 
     ipAddress.innerHTML=`IP Address : ${localStorage.getItem("ipAddress")}`; 
-    const response = await fetch(`https://ipapi.co/${localStorage.getItem("ipAddress")}/json/`);
-    const result = await response.json();
-    const date = new Date().toLocaleString("en-US", { timeZone: `${result.timezone}` });
-     for(let i = 0;i<6;i++){
-        if(i==0)details[i].innerHTML=`Lat : ${result.latitude}`
-        if(i==1)details[i].innerHTML=`Long : ${result.longitude}`
-        if(i==2)details[i].innerHTML=`City : ${result.city}`
-        if(i==3)details[i].innerHTML=`Region : ${result.region}`
-        if(i==4)details[i].innerHTML=`HostName : ${location.hostname}`;
-        if(i==5)details[i].innerHTML="Organisation : Postal Services";
-     }
-
-    for(let i = 0;i<4;i++){
-        if(i==0)moreDetails[i].innerHTML=`Time Zone : ${result.timezone}`;
-        if(i==1)moreDetails[i].innerHTML=`Date And Time : ${date}`;
-        if(i==2)moreDetails[i].innerHTML=`Pincode : ${result.postal}`;
+    try{
+        const response = await fetch(`https://ipapi.co/${localStorage.getItem("ipAddress")}/json/`);
+        const result = await response.json();
+        const date = new Date().toLocaleString("en-US", { timeZone: `${result.timezone}` });
+        for(let i = 0;i<6;i++){
+           if(i==0)details[i].innerHTML=`Lat : ${result.latitude}`
+           if(i==1)details[i].innerHTML=`Long : ${result.longitude}`
+           if(i==2)details[i].innerHTML=`City : ${result.city}`
+           if(i==3)details[i].innerHTML=`Region : ${result.region}`
+           if(i==4)details[i].innerHTML=`HostName : ${location.hostname}`;
+           if(i==5)details[i].innerHTML="Organisation : Postal Services";
+        }
+   
+       for(let i = 0;i<4;i++){
+           if(i==0)moreDetails[i].innerHTML=`Time Zone : ${result.timezone}`;
+           if(i==1)moreDetails[i].innerHTML=`Date And Time : ${date}`;
+           if(i==2)moreDetails[i].innerHTML=`Pincode : ${result.postal}`;
+           
+       }
+   
+         map = new google.maps.Map(document.getElementById("map"), {
+         center: { lat: result.latitude, lng: result.longitude },
+         zoom: 8,
+       });
+   
+       fillPostOfficeArray(result.postal);
         
     }
-
-      map = new google.maps.Map(document.getElementById("map"), {
-      center: { lat: result.latitude, lng: result.longitude },
-      zoom: 8,
-    });
-
-    fillPostOfficeArray(result.postal);
+    catch(e){
+        console.log(e);
+    }
+  
+   
     
 
 }
@@ -51,23 +59,28 @@ async function renderDetails(){
 // this function pushes all post office details we get to the post_office array
 // it also invokes renderPostOffices function which ultimately dynamically adds all post offices
 async function fillPostOfficeArray(postal){
-
-    const response = await fetch(`https://api.postalpincode.in/pincode/${postal}`);
-    const result = await response.json();
-    const data = result["0"];
+    try{
+        const response = await fetch(`https://api.postalpincode.in/pincode/${postal}`);
+        const result = await response.json();
+        const data = result["0"];
+        
+        moreDetails[3].innerHTML=data.Message;
+        
+        data.PostOffice.forEach((item)=>{
+            let temp = [];
+            temp.push(item.Name);
+            temp.push(item.BranchType);
+            temp.push(item.DeliveryStatus);
+            temp.push(item.District);
+            temp.push(item.Division);
+            post_offices.push(temp);
+        });
+        renderPostOffices();
+    }
+   catch(e){
+    console.log(e.Message);
+   }
     
-    moreDetails[3].innerHTML=data.Message;
-    
-    data.PostOffice.forEach((item)=>{
-        let temp = [];
-        temp.push(item.Name);
-        temp.push(item.BranchType);
-        temp.push(item.DeliveryStatus);
-        temp.push(item.District);
-        temp.push(item.Division);
-        post_offices.push(temp);
-    });
-    renderPostOffices();
 
 
 
